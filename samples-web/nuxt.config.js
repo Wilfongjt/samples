@@ -1,4 +1,6 @@
 import pkg from './package'
+// console.log('process.env.NODE_ENV: ' + process.env.NODE_ENV)
+// console.log('process.env.DEPLOY_ENV: ' + process.env.DEPLOY_ENV)
 if (process.env.NODE_ENV !== 'production') {
   process.env.DEPLOY_ENV=''
   require('dotenv').config()
@@ -6,13 +8,16 @@ if (process.env.NODE_ENV !== 'production') {
    // switch to
    process.env.DEPLOY_ENV='GH_PAGES'
 }
-// allow static app to run in subfolder of host
+console.log('process.env.NODE_ENV: ' + process.env.NODE_ENV)
+console.log('process.env.DEPLOY_ENV: ' + process.env.DEPLOY_ENV)
+// allow static app to run in root of host
 const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
    router: {
-     base: '/samples/'
+     base: '/'
    }
  } : {}
 export default {
+  ...routerBase,
   mode: 'spa',
   /*
   ** Headers of the page
